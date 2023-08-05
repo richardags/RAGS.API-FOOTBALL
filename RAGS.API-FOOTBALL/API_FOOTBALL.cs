@@ -128,7 +128,7 @@ namespace RAGS.API_FOOTBALL
         public Fixtures GetFixturesInPlay()
         {
             HttpClientHelperResult result = HttpClientHelperNS.Response(
-                URLBuilder.Fixtures,
+                URLBuilder.FixturesInPlay,
                 HttpMethod.Get,
                 requestHeaders: requestHeaders);
 
@@ -159,11 +159,67 @@ namespace RAGS.API_FOOTBALL
                 throw new HttpClientHelperException(result.error);
             }
         }
-
+        /// <summary>
+        /// Get fixture from one fixture {id}
+        /// events, lineups, statistics fixture and players fixture are returned in the response
+        /// </summary>
+        /// <param name="id">fixture id</param>
+        /// <returns></returns>
+        /// <exception cref="DeserializeObjectNullException"></exception>
+        /// <exception cref="HttpStatusCodeException"></exception>
+        /// <exception cref="HttpClientHelperException"></exception>
         public Fixtures GetFixture(int id)
         {
             HttpClientHelperResult result = HttpClientHelperNS.Response(
                 URLBuilder.Fixture(id),
+                HttpMethod.Get,
+                requestHeaders: requestHeaders);
+
+            if (result.error == null)
+            {
+                if (result.httpStatusCode == HttpStatusCode.OK)
+                {
+                    Fixtures? fixtures = JsonConvert.DeserializeObject<Fixtures>(result.data);
+
+                    if (fixtures != null)
+                    {
+                        UpdateInfoFromHeaders(result.headers);
+
+                        return fixtures;
+                    }
+                    else
+                    {
+                        throw new DeserializeObjectNullException();
+                    }
+                }
+                else
+                {
+                    throw new HttpStatusCodeException(result.httpStatusCode, result.data);
+                }
+            }
+            else
+            {
+                throw new HttpClientHelperException(result.error);
+            }
+        }
+        /// <summary>
+        /// Get fixture from severals fixtures {ids}
+        /// events, lineups, statistics fixture and players fixture are returned in the response
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        /// <exception cref="DeserializeObjectNullException"></exception>
+        /// <exception cref="HttpStatusCodeException"></exception>
+        /// <exception cref="HttpClientHelperException"></exception>
+        public Fixtures GetFixtures(int[] ids)
+        {
+            if(ids.Length > 20)
+            {
+                throw new MaximumFixtureIDsLengthExceededException();
+            }
+
+            HttpClientHelperResult result = HttpClientHelperNS.Response(
+                URLBuilder.Fixtures(ids),
                 HttpMethod.Get,
                 requestHeaders: requestHeaders);
 

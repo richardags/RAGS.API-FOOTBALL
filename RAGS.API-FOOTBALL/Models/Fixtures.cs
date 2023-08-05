@@ -8,15 +8,15 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using static RAGS.API_FOOTBALL.Models.Countries;
-using static RAGS.API_FOOTBALL.Models.Fixtures.Data.Fixture;
-using static RAGS.API_FOOTBALL.Models.Fixtures.Data.Teams;
+using static RAGS.API_FOOTBALL.Models.Fixtures.Response.Fixture;
+using static RAGS.API_FOOTBALL.Models.Fixtures.Response.Teams;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace RAGS.API_FOOTBALL.Models
 {
     public class Fixtures
     {
-        public class Data
+        public class Response
         {
             public class Fixture
             {
@@ -197,48 +197,48 @@ namespace RAGS.API_FOOTBALL.Models
                 }
 
                 public required Team team;
-                public required Statistic[] statistics;
+                public Statistic[]? statistics;
                                 
                 public int GetBallPossession
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.BallPossession).value;
+                        return statistics?.First(e => e.type == Statistic.Type.BallPossession).value ?? 0;
                     }
                 }
                 public int GetYellowCards
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.YellowCards).value;
+                        return statistics?.First(e => e.type == Statistic.Type.YellowCards).value ?? 0;
                     }
                 }
                 public int GetRedCards
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.RedCards).value;
+                        return statistics?.First(e => e.type == Statistic.Type.RedCards).value ?? 0;
                     }
                 }
                 public int GetCornerKicks
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.CornerKicks).value;
+                        return statistics?.First(e => e.type == Statistic.Type.CornerKicks).value ?? 0;
                     }
                 }
                 public int GetTotalShots
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.TotalShots).value;
+                        return statistics?.First(e => e.type == Statistic.Type.TotalShots).value ?? 0;
                     }
                 }
                 public int GetShotsOnGoal
                 {
                     get
                     {
-                        return statistics.First(e => e.type == Statistic.Type.ShotsOnGoal).value;
+                        return statistics?.First(e => e.type == Statistic.Type.ShotsOnGoal).value ?? 0;
                     }
                 }
             }
@@ -250,9 +250,9 @@ namespace RAGS.API_FOOTBALL.Models
             public Score score;
             //public Event events;
             //public Lineups lineups;
-            public Statistics[] statistics;
+            public required Statistics[] statistics;
         }
 
-        public required Data[] response;
+        public required Response[] response;
     }
 }

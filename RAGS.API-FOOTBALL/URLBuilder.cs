@@ -24,7 +24,7 @@ namespace RAGS.API_FOOTBALL
                 return URL_BASE + "countries";
             }
         }
-        public static string Fixtures
+        public static string FixturesInPlay
         {
             get
             {
@@ -34,6 +34,10 @@ namespace RAGS.API_FOOTBALL
         public static string Fixture(int id)
         {
             return string.Format("{0}fixtures?id={1}", URL_BASE, id);
+        }
+        public static string Fixtures(int[] ids)
+        {
+            return string.Format("{0}fixtures?ids={1}", URL_BASE, string.Join("-", ids));
         }
     }
 }
