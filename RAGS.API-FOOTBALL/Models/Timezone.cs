@@ -8,24 +8,8 @@ using System.Threading.Tasks;
 
 namespace RAGS.API_FOOTBALL.Models
 {
-    public class Timezone
+    public class Timezone : ModelBase
     {
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum Get
-        {
-            timezone
-        }
-        public class Paging
-        {
-            public int current;
-            public int total;
-        }
-
-        public Get get;
-        public object? parameters;
-        public object? errors;
-        public int results;
-        public Paging paging = new();
         public List<string> response = new();
     }
 }

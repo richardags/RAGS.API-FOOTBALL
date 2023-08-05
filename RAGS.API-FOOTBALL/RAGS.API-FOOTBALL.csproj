@@ -5,10 +5,21 @@
     <RootNamespace>RAGS.API_FOOTBALL</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>API-FOOTBALL</Title>
+    <Version>1.0.1</Version>
+    <Authors>richardags</Authors>
+    <PackageId>RAGS.API-FOOTBALL</PackageId>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/richardags/RAGS.API-FOOTBALL</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/richardags/RAGS.API-FOOTBALL</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>This API is a interface for api-football.com</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RAGS.HttpClientHelper" Version="1.0.4" />
+    <PackageReference Include="RAGS.HttpClientHelper" Version="1.0.6" />
   </ItemGroup>
 
 </Project>
